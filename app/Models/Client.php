@@ -62,4 +62,14 @@ class Client extends Authenticatable
     {
         return $this->morphMany(Notification::class, 'userable')->latest('id');
     }
+
+    public function business_list()
+    {
+        return $this->hasMany(Business::class, 'client_id', 'id')->latest('id');
+    }
+
+    public function employee_list()
+    {
+        return $this->hasMany(Employee::class, 'client_id', 'id')->latest('id');
+    }
 }

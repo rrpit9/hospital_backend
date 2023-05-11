@@ -21,6 +21,11 @@ Route::group(['middleware'=> ['auth:client-api','scope:client']],function(){
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
     
+    Route::get('business',[ClientController::class, 'businessList']);
+    Route::get('employee',[ClientController::class, 'employeeList']);
+    Route::post('employee/create',[ClientController::class, 'storeEmployee']);
+    Route::post('employee/{id}/update',[ClientController::class, 'updateEmployee']);
+
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);
     Route::any('logout_from_all',[AuthenticationController::class,'logoutFromAllDevice']);
