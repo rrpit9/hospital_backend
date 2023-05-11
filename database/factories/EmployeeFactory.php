@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use Hash;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class UserFactory extends Factory
+class EmployeeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,6 +16,8 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'business_id' => 1,
+            'client_id' => 1,
             'name' => $this->faker->name(),
             'mobile' => rand(6000000001,9999999999),
             'mobile_verified_at' => now(),

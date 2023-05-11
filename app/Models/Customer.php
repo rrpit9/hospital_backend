@@ -53,7 +53,7 @@ class Customer extends Authenticatable
         parent::boot();
         static::created(function ($customer) {
             /* Generating Referral Code */
-            $customer->referral_code = 'CUS' . $customer->id . generateUniqueAlphaNumeric(5);
+            $customer->referral_code = strtoupper('CUS' . $customer->id . generateUniqueAlphaNumeric(5));
             $customer->save();
         });
     }

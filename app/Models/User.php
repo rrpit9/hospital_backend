@@ -51,7 +51,7 @@ class User extends Authenticatable
         parent::boot();
         static::created(function ($admin) {
             /* Generating Referral Code */
-            $admin->referral_code = 'ADM' . $admin->id . generateUniqueAlphaNumeric(5);
+            $admin->referral_code = strtoupper('ADM' . $admin->id . generateUniqueAlphaNumeric(5));
             $admin->save();
         });
     }

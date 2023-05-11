@@ -53,7 +53,7 @@ class Employee extends Authenticatable
         parent::boot();
         static::created(function ($employee) {
             /* Generating Referral Code */
-            $employee->referral_code = 'EMP' . $employee->id . generateUniqueAlphaNumeric(5);
+            $employee->referral_code = strtoupper('EMP' . $employee->id . generateUniqueAlphaNumeric(5));
             $employee->save();
         });
     }

@@ -53,7 +53,7 @@ class Client extends Authenticatable
         parent::boot();
         static::created(function ($client) {
             /* Generating Referral Code */
-            $client->referral_code = 'CLI' . $client->id . generateUniqueAlphaNumeric(5);
+            $client->referral_code = strtoupper('CLI' . $client->id . generateUniqueAlphaNumeric(5));
             $client->save();
         });
     }

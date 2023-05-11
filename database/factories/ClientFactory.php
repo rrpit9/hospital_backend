@@ -6,7 +6,7 @@ use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class ClientFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -41,8 +41,8 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
-                'mobile_verified_at' => null
+                // 'email_verified_at' => null,
+                // 'mobile_verified_at' => null
             ];
         });
     }
