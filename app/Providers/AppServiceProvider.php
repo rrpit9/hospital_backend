@@ -44,7 +44,8 @@ class AppServiceProvider extends ServiceProvider
             'ADMIN' => \App\Models\User::class,
             'CLIENT' => \App\Models\Client::class,
             'EMPLOYEE' => \App\Models\Employee::class,
-            'CUSTOMER' => \App\Models\Customer::class
+            'CUSTOMER' => \App\Models\Customer::class,
+            'PRODUCTS' => \App\Models\Product::class
         ]);
     }
 
