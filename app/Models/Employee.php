@@ -57,4 +57,9 @@ class Employee extends Authenticatable
             $employee->save();
         });
     }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'userable')->latest('id');
+    }
 }

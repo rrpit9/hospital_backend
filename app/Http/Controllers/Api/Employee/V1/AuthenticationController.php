@@ -7,6 +7,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserInfoResource;
+use App\Http\Resources\V1\NotificationResource;
 
 class AuthenticationController extends Controller
 {
@@ -36,13 +37,19 @@ class AuthenticationController extends Controller
         }catch(Exception $e){
             throw $e;
         }
-
     }
 
     public function getUserProfile(Request $req)
     {
-        $user = $req->user();
+        $employee = $req->user();
         
-        return $this->respondOk(new UserInfoResource($user));
+        return $this->respondOk(new UserInfoResource($employee));
+    }
+
+    public function getUserNotification(Request $req)
+    {
+        $employee = $req->user();
+        $notifications = $employee->notifications;
+        return $this->respondOk(NotificationResource::collection($notifications));
     }
 }

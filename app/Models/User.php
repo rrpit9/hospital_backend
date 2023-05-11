@@ -55,4 +55,9 @@ class User extends Authenticatable
             $admin->save();
         });
     }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'userable')->latest('id');
+    }
 }

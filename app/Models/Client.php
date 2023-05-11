@@ -57,4 +57,9 @@ class Client extends Authenticatable
             $client->save();
         });
     }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'userable')->latest('id');
+    }
 }

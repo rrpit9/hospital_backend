@@ -18,7 +18,8 @@ Route::post('login',[AuthenticationController::class,'login']);
 
 Route::group(['middleware'=> ['auth:employee-api','scope:employee']],function(){
     // Authenticated API Routes will appear here
-    Route::get('user/profile',[AuthenticationController::class,'getUserProfile']);
+    Route::get('profile',[AuthenticationController::class,'getUserProfile']);
+    Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
 
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);
