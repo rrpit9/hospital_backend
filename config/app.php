@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'encryption_key' => env('ENCRYPTION_KEY', 'AA74CDCC2BBRT935136HH7B63C27'),
+    'encryption_iv' => env('ENCRYPTION_IV', '5fgf5HJ5g27'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

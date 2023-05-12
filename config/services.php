@@ -36,6 +36,10 @@ return [
         'client' => 'Client',
         'employee' => 'Employee',
         'customer' => 'Customer',
-    ]
+    ],
 
+    'payment' => [
+        'razorpay_key' => env('RAZORPAY_KEY','rzp_test_XXXXXXXXX'),
+        'razorpay_secret' => env('RAZORPAY_SECRET','XXXXXXXXXXXXXXXX'),
+    ]
 ];

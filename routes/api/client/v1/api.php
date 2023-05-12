@@ -22,9 +22,9 @@ Route::group(['middleware'=> ['auth:client-api','scope:client']],function(){
     
     /** Business Routing */
     Route::get('business',[ClientController::class, 'businessList']);
-    Route::post('employee/create',[ClientController::class, 'storeBusiness']);
-    Route::post('employee/{id}/update',[ClientController::class, 'updateBusiness']);
-    Route::post('employee/{id}/delete',[ClientController::class, 'deleteBusiness']);
+    Route::post('business/create',[ClientController::class, 'storeBusiness']);
+    Route::post('business/{id}/update',[ClientController::class, 'updateBusiness']);
+    Route::post('business/{id}/delete',[ClientController::class, 'deleteBusiness']);
 
     /** Employee Routing */
     Route::get('employee',[ClientController::class, 'employeeList']);
