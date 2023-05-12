@@ -42,7 +42,7 @@ class CreateBusinessPlansTable extends Migration
     {
         Schema::dropIfExists('business_plans');
 
-        Schema::table('business_plans', function (Blueprint $table) {
+        Schema::table('businesses', function (Blueprint $table) {
             $table->dropColumn(['active_plan_id']);
         });
     }

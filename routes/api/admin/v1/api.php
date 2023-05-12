@@ -21,7 +21,8 @@ Route::group(['middleware'=> ['auth:admin-api','scope:admin']],function(){
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
 
-    Route::post('client/business/upgrade/initiate-order',[AdminController::class, 'upgradeClientBusinessPlan']);
+    Route::post('client/business-plan/initiate-order',[AdminController::class, 'clientBusinessPlanInitiateOrder']);
+    Route::post('client/business-plan/{orderId}/fulfill-order',[AdminController::class, 'clientBusinessPlanFulfilOrder']);
     
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);

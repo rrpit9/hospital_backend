@@ -3,27 +3,35 @@
     use App\Models\User;
     use Illuminate\Support\Str;
 
-    if (! function_exists('successResponse'))
+    // Generate Unique Random AlphaNumeric of Defined Length
+    if (! function_exists('generateUniqueAlphaNumeric'))
     {
-        function successResponse($msg = '', $data = null, $status = 200)
+        function generateUniqueAlphaNumeric($length = 10)
         {
-            return response()->json([
-                'success' => true,
-                'message' => $msg,
-                'data' => $data
-            ], $status);
+            $random_string = '';
+            for ($i = 0; $i < $length; $i++) {
+                $number = random_int(0, 36);
+                $character = base_convert($number, 10, 36);
+                $random_string .= $character;
+            }
+            return $random_string;
         }
     }
 
-    if (! function_exists('errorResponse'))
+    if (! function_exists('dateCheck'))
     {
-        function errorResponse($msg = '', $data = null, $status = 422)
+        function dateCheck($date = "", $timeToShow = false, $format = 'd M, Y')
         {
-            return response()->json([
-                'success' => false,
-                'message' => $msg,
-                'data' => $data
-            ], $status);
+            if($timeToShow){$format.=' h:i A';}
+            return ($date ? date($format, strtotime($date)) : null);
+        }
+    }
+
+    if(! function_exists('orderHandler'))
+    {
+        function orderHandler()
+        {
+            return app(\App\Services\Handler\OrderPaymentHandler::class);
         }
     }
 
@@ -75,21 +83,6 @@
         }
     }
 
-    // Generate Unique Random AlphaNumeric of Defined Length
-    if (! function_exists('generateUniqueAlphaNumeric'))
-    {
-        function generateUniqueAlphaNumeric($length = 10)
-        {
-            $random_string = '';
-            for ($i = 0; $i < $length; $i++) {
-                $number = random_int(0, 36);
-                $character = base_convert($number, 10, 36);
-                $random_string .= $character;
-            }
-            return $random_string;
-        }
-    }
-
     // String Verifiy For DB Check
     if (! function_exists('strCheck'))
     {
@@ -106,15 +99,6 @@
                 }
             }
             return $returnString;
-        }
-    }
-
-    if (! function_exists('dateCheck'))
-    {
-        function dateCheck($date = "", $timeToShow = false, $format = 'd M, Y')
-        {
-            if($timeToShow){$format.=' h:i A';}
-            return ($date ? date($format, strtotime($date)) : null);
         }
     }
 

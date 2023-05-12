@@ -17,10 +17,11 @@ class CreateMasterOrdersTable extends Migration
             $table->id();
             $table->nullableMorphs('userable');
             $table->nullableMorphs('orderable');
-            $table->unsignedTinyInteger('status')->default(0)->index()->comment('INITIATED:0, PAYMENT_FAILED:1, PAYMENT_COMPLETE:2, FULFILLED:3, REFUND_INITIATED:4, PAYMENT_REFUNDED:5');
-            $table->decimal('total_amount', 10,2)->default(0)->comment('Total Amount Payable for this Order');
             $table->decimal('by_wallet', 10,2)->default(0)->comment('Amount Paid By Wallet');
             $table->decimal('by_online', 10,2)->default(0)->comment('Amount Paid By Online');
+            $table->decimal('net_payable', 10,2)->default(0)->comment('Net Payable Amount for this Order');
+            $table->unsignedTinyInteger('status')->default(0)->index()->comment('INITIATED:0, PAYMENT_FAILED:1, PAYMENT_COMPLETE:2, FULFILLED:3, REFUND_INITIATED:4, PAYMENT_REFUNDED:5');
+            $table->string('gateway_order_id',70)->nullable()->comment('The payment gateway/merchant order id');
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('fulfilled_at')->nullable();
             $table->timestamp('refunded_at')->nullable();
