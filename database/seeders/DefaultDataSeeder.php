@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Business;
+use App\Models\BusinessPlan;
 use Illuminate\Database\Seeder;
 
 class DefaultDataSeeder extends Seeder
@@ -32,5 +33,8 @@ class DefaultDataSeeder extends Seeder
 
         /** Creating Default Customers */
         Customer::factory(2)->create();
+
+        /** Business Plan Defaults Seeder */
+        BusinessPlan::factory(12)->create();
     }
 }

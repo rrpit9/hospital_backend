@@ -20,6 +20,8 @@ Route::group(['middleware'=> ['auth:admin-api','scope:admin']],function(){
     // Authenticated API Routes will appear here
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
+
+    Route::post('client/business/upgrade/initiate-order',[AdminController::class, 'upgradeClientBusinessPlan']);
     
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);

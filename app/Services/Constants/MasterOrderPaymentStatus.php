@@ -2,7 +2,7 @@
 
 namespace App\Services\Constants;
 
-class OrderPaymentStatus
+class MasterOrderPaymentStatus
 {
     const INITIATED             = 0;
     const PAYMENT_FAILED        = 1;
