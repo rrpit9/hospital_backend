@@ -19,12 +19,21 @@ Route::post('login',[AuthenticationController::class,'login']);
 Route::group(['middleware'=> ['auth:client-api','scope:client']],function(){
     // Authenticated API Routes will appear here
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
-    Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
     
+    /** Business Routing */
     Route::get('business',[ClientController::class, 'businessList']);
+    Route::post('employee/create',[ClientController::class, 'storeBusiness']);
+    Route::post('employee/{id}/update',[ClientController::class, 'updateBusiness']);
+    Route::post('employee/{id}/delete',[ClientController::class, 'deleteBusiness']);
+
+    /** Employee Routing */
     Route::get('employee',[ClientController::class, 'employeeList']);
     Route::post('employee/create',[ClientController::class, 'storeEmployee']);
     Route::post('employee/{id}/update',[ClientController::class, 'updateEmployee']);
+    Route::post('employee/{id}/delete',[ClientController::class, 'deleteEmployee']);
+
+    /** Notification Routing */
+    Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
 
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);
