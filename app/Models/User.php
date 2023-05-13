@@ -16,6 +16,8 @@ class User extends Authenticatable
 
     protected $table = 'admins';
 
+    protected $guard = "admin"; /** Use for Web Login */
+
     /**
      * The attributes that are mass assignable.
      *

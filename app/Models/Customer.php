@@ -16,6 +16,8 @@ class Customer extends Authenticatable
 
     protected $table = 'customers';
 
+    protected $guard = "customer"; /** Use for Web Login */
+
     protected $guarded = [];
 
     /**

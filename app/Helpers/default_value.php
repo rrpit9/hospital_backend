@@ -24,4 +24,12 @@
         }
     }
 
+    if (! function_exists('userType'))
+    {
+        function userType()
+        {
+            return ['admin','client','employee','customer'];
+        }
+    }
+
 

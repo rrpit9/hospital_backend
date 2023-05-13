@@ -15,7 +15,9 @@ class Client extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'clients';
-
+    
+    protected $guard = "client"; /** Use for Web Login */
+    
     protected $guarded = [];
 
     /**

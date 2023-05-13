@@ -16,7 +16,9 @@ class Employee extends Authenticatable
 
     protected $table = 'employees';
 
-    // protected $guarded = [];
+    protected $guard = "employee"; /** Use for Web Login */
+
+    protected $guarded = [];
 
     /**
      * The attributes that are mass assignable.

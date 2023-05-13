@@ -47,8 +47,8 @@ class Controller extends BaseController
             $tokenId = (new Parser(new JoseEncoder()))->parse($userModel->accessToken)->claims()->all()['jti'];
             if($tokenId){
                 OAuthAccessToken::where('id',$tokenId)->update([
-                    'device_type' => request()->device_type,
-                    'device_token' => request()->device_token,
+                    'device_type' => request()->device_type ?? null,
+                    'device_token' => request()->device_token ?? null,
                     'ip_address' => request()->ip()
                 ]);
             }

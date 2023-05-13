@@ -21,11 +21,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes(['login' => false, 'register' => false, 'verify' => true, 'logout' => false]);
+Auth::routes(['login' => true, 'register' => false, 'verify' => true, 'logout' => false]);
 
-Route::group(['middleware' => ['auth','verified']], function () {
-    // Authenticate & Verified Routes Will be Here
-    Route::get('home', [HomeController::class, 'index'])->name('home');
+/** Admin Routes */
+Route::group(['prefix' => 'admin','middleware' => ['auth:admin','verified']], function () {
+    Route::get('dashboard', [HomeController::class, 'adminDashboard']);
+});
+
+/** Client Routes */
+Route::group(['prefix' => 'client','middleware' => ['auth:client','verified']], function () {
+    Route::get('dashboard', [HomeController::class, 'clientDashboard']);
+});
+
+/** Employee Routes */
+Route::group(['prefix' => 'employee','middleware' => ['auth:employee','verified']], function () {
+    Route::get('dashboard', [HomeController::class, 'employeeDashboard']);
+});
+
+/** Customer Routes */
+Route::group(['prefix' => 'customer','middleware' => ['auth:customer','verified']], function () {
+    Route::get('dashboard', [HomeController::class, 'customerDashboard']);
 });
 
 Route::any('logout', [LoginController::class, 'logout'])->name('logout');
