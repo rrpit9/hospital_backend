@@ -15,7 +15,9 @@ class BusinessPlanOrder extends Model
     const FAILED        = 2;
     const EXPIRED       = 3;
 
-    public function plan()
+    protected $guarded = [];
+
+    public function businessPlan()
     {
         return $this->belongsTo(BusinessPlan::class, 'business_plan_id', 'id')->latest('id');
     }

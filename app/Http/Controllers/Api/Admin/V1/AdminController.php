@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin\V1;
 
 use DB;
 use Exception;
+use Carbon\Carbon;
 use App\Models\Client;
 use App\Models\Business;
 use App\Models\BusinessPlan;
@@ -96,13 +97,24 @@ class AdminController extends Controller
         $gatewayOrderId = $req->get('gateway_order_id');
         $paymentFailedAtUserEnd = (bool) $req->get('payment_failed', false);
 
+        /** Validate The Plan Order */
         $order = BusinessPlanOrder::where('id', $orderId)->first();
         if (!$order) {
             abort(404, 'Order not found');
         }
+        /** Validate The Selected Plan */
+        $businessPlan = $order->businessPlan;
+        if (!$businessPlan) {
+            abort(404, 'Plan not found');
+        }
+        /** Validate The Business for the Selected Plan */
+        $business = $order->business;
+        if (!$business) {
+            abort(404, 'Business not found');
+        }
         /* To handle webhook's faster processed requests .*/
         if ($order->status == BusinessPlanOrder::ACTIVE && $order->paid_at) {
-            return $this->respondOk(new BusinessPlanResource($order->plan));
+            return $this->respondOk(new BusinessPlanResource($businessPlan));
         }
         $masterOrder = $order->masterOrder;
         $orderHandler = orderHandler();
@@ -119,11 +131,22 @@ class AdminController extends Controller
             throw $e;
         }
         $orderHandler->markMasterOrderAsFulfilled($masterOrder);
-        $order->paid_at = now();
-            $order->status = BusinessPlanOrder::ACTIVE;
-        $order->save();
+        $order->update(['paid_at' => now(),'status' => BusinessPlanOrder::ACTIVE]);
         /** Extend the same Validity for the Business */
-        
-        return $this->respondOk(new BusinessPlanResource($order->plan));
+        $newValidity = $this->extendValidityForPlan($businessPlan->validity, $business->valid_till);
+        $business->update(['active_plan_id' => $businessPlan->id, 'valid_till' => $newValidity]);
+
+        return $this->respondOk(new BusinessPlanResource($businessPlan));
     }
+
+    public function extendValidityForPlan($planValidity, $currentValidity = null)
+    {
+        $today = Carbon::now();
+        $isGteToday = $today->greaterThanOrEqualTo(Carbon::parse($currentValidity));
+        if($isGteToday){/** The date will be Extend from Today */
+            return Carbon::now()->addDays($planValidity * 365.3);
+        }
+        /** The Date will be add in the Existing Date */
+        return Carbon::parse($currentValidity)->addDays($planValidity * 365.3);
+    }    
 }

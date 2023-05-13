@@ -20,7 +20,7 @@ class BusinessFactory extends Factory
             'mobile' => rand(6000000001,9999999999),
             'address' => $this->faker->address,
             'pincode' => \Faker\Provider\Address::postcode(),
-            'valid_till' => date('Y-m-d', strtotime('+1 year')),
+            'valid_till' => now(),
             'active' => true
         ];
     }

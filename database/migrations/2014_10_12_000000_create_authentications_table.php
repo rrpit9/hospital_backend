@@ -130,7 +130,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('logo')->default('images/business-img.png');
             $table->text('address')->nullable();
             $table->string('pincode', 10)->nullable();
-            $table->timestamp('valid_till')->nullable();
+            $table->date('valid_till')->nullable();
             $table->boolean('active')->default(true);
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
