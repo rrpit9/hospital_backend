@@ -25,8 +25,8 @@ class AdminController extends Controller
         ]);
 
         /** Validate the plan */
-        $plan = BusinessPlan::where('id', $req->plan_id)->first();
-        if(!$plan){
+        $businessPlan = BusinessPlan::where('id', $req->plan_id)->first();
+        if(!$businessPlan){
             throw new ValidateException(['plan_id' => 'the selected plan is Invalid']);
         }
         /** Validate the Business */
@@ -42,13 +42,14 @@ class AdminController extends Controller
         $orderHandler = orderHandler();
         DB::beginTransaction();
         try{
-            $cart = new CartHandler($plan->price);
+            $planPrice = round($businessPlan->price - ($businessPlan->price * $businessPlan->discount_percentage / 100), 2);
+            $cart = new CartHandler($planPrice);
 
             /** Creating the Order for Purchasing the plan */
             $order = new BusinessPlanOrder();
                 $order->client_id = $business->client_id;
                 $order->business_id = $business->id;
-                $order->business_plan_id = $plan->id;
+                $order->business_plan_id = $businessPlan->id;
                 $order->purchase_price = $cart->purchaseAmount;
                 $order->igst_rate = $cart->igstRate;
                 $order->igst_amount = $cart->igstAmount;
