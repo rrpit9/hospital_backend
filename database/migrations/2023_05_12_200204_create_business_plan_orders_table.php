@@ -20,6 +20,8 @@ class CreateBusinessPlanOrdersTable extends Migration
             $table->bigInteger('business_plan_id')->comment('Referance of Business Plan Id')->index();
             $table->string('invoice_link')->nullable();
             $table->decimal('purchase_price', 10,2)->default(0)->comment('Amount of the plan');
+            $table->decimal('discount_percentage', 6,2)->default(0)->comment('Discount percentage applied for this order');
+            $table->decimal('discount_amount', 10,2)->default(0)->comment('Discount Amount applied for this order');
             $table->float('igst_rate', 5,2)->default(0);
             $table->float('igst_amount', 10,2)->default(0);
             $table->float('cgst_rate', 5,2)->default(0);

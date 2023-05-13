@@ -30,10 +30,20 @@ class OrderPaymentHandler
             'userable_id' => $user->getKey(),
             'orderable_type' => $order->getMorphClass(),
             'orderable_id' => $order->getKey(),
+            'status' => MasterOrderPaymentStatus::INITIATED,
+            'purchase_price' => round($order->purchase_price, 2),
+            'discount_percentage' => round($order->discount_percentage, 2),
+            'discount_amount' => round($order->discount_amount, 2),
+            'discount_amount' => round($order->discount_amount, 2),
+            'net_payable' => round($order->net_payable, 2),
             'by_wallet' => round($order->by_wallet, 2),
             'by_online' => round($order->by_online, 2),
-            'net_payable' => round($order->net_payable, 2),
-            'status' => MasterOrderPaymentStatus::INITIATED,
+            'igst_rate' => round($order->igst_rate, 2),
+            'igst_amount' => round($order->igst_amount, 2),
+            'cgst_rate' => round($order->cgst_rate, 2),
+            'cgst_amount' => round($order->cgst_amount, 2),
+            'sgst_rate' => round($order->sgst_rate, 2),
+            'sgst_amount' => round($order->sgst_amount, 2),
             'ip' => request()->ip()
         ]);
         return $masterOrder;

@@ -42,8 +42,7 @@ class AdminController extends Controller
         $orderHandler = orderHandler();
         DB::beginTransaction();
         try{
-            $planPrice = round($businessPlan->price - ($businessPlan->price * $businessPlan->discount_percentage / 100), 2);
-            $cart = new CartHandler($planPrice);
+            $cart = new CartHandler($businessPlan->price, $businessPlan->discount_percentage);
 
             /** Creating the Order for Purchasing the plan */
             $order = new BusinessPlanOrder();
@@ -51,6 +50,8 @@ class AdminController extends Controller
                 $order->business_id = $business->id;
                 $order->business_plan_id = $businessPlan->id;
                 $order->purchase_price = $cart->purchaseAmount;
+                $order->discount_percentage = round($cart->discountPercentage, 2);
+                $order->discount_amount = round($cart->discountAmount, 2);
                 $order->igst_rate = $cart->igstRate;
                 $order->igst_amount = $cart->igstAmount;
                 $order->cgst_rate = $cart->cgstRate;
@@ -149,5 +150,5 @@ class AdminController extends Controller
         }
         /** The Date will be add in the Existing Date */
         return Carbon::parse($currentValidity)->addDays($planValidity * 365.3);
-    }    
+    }
 }

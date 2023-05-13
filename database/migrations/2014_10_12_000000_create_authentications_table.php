@@ -24,7 +24,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('email', 100)->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('referral_code',20)->nullable()->index();
+            $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.jpg');
             $table->string('gender', 15)->nullable();
@@ -50,7 +50,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('referral_code',20)->nullable()->index();
+            $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.jpg');
             $table->string('gender', 20)->nullable();
@@ -78,7 +78,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('referral_code',20)->nullable()->index();
+            $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.jpg');
             $table->string('gender', 20)->nullable();
@@ -104,7 +104,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('email', 100)->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('referral_code',20)->nullable()->index();
+            $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.jpg');
             $table->string('gender', 15)->nullable();
