@@ -22,7 +22,7 @@ class UserInfoResource extends JsonResource
             'email' => $this->email,
             'email_verified_at' => dateCheck($this->email_verified_at, true),
             'referral_code' => $this->referral_code,
-            'image' => $this->image,
+            'image' => url("$this->image"),
             'gender' => $this->gender,
             'dob' => dateCheck($this->dob),
             'marital' => $this->marital,

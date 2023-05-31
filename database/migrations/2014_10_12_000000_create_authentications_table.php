@@ -26,7 +26,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('password')->nullable();
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
-            $table->string('image')->default('images/user.jpg');
+            $table->string('image')->default('images/user.png');
             $table->string('gender', 15)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -52,7 +52,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('password')->nullable();
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
-            $table->string('image')->default('images/user.jpg');
+            $table->string('image')->default('images/user.png');
             $table->string('gender', 20)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -80,7 +80,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('password')->nullable();
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
-            $table->string('image')->default('images/user.jpg');
+            $table->string('image')->default('images/user.png');
             $table->string('gender', 20)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -106,7 +106,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('password')->nullable();
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
-            $table->string('image')->default('images/user.jpg');
+            $table->string('image')->default('images/user.png');
             $table->string('gender', 15)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
