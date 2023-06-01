@@ -27,6 +27,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.png');
+            $table->text('about')->nullable()->comment('About the User');
             $table->string('gender', 15)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -53,6 +54,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.png');
+            $table->text('about')->nullable()->comment('About the User');
             $table->string('gender', 20)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -72,15 +74,16 @@ class CreateAuthenticationsTable extends Migration
             $table->unsignedBigInteger('business_id')->comment('Referance of Business Table')->index();
             $table->unsignedBigInteger('client_id')->comment('Referance of Client Table')->index();
             $table->string('name')->nullable();
-            $table->string('mobile',15)->nullable()->unique();
+            $table->string('mobile',15)->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('login_pin', 10)->nullable();
-            $table->string('email')->nullable()->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.png');
+            $table->text('about')->nullable()->comment('About the User');
             $table->string('gender', 20)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();
@@ -92,6 +95,8 @@ class CreateAuthenticationsTable extends Migration
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->unique(['mobile', 'business_id']);
+            $table->unique(['email', 'business_id']);
         });
 
         /** For Customers */
@@ -107,6 +112,7 @@ class CreateAuthenticationsTable extends Migration
             $table->string('referral_code',20)->nullable()->unique();
             $table->nullableMorphs('referredable');
             $table->string('image')->default('images/user.png');
+            $table->text('about')->nullable()->comment('About the User');
             $table->string('gender', 15)->nullable();
             $table->date('dob')->nullable();
             $table->string('marital', 20)->nullable();

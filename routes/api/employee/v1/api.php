@@ -20,6 +20,8 @@ Route::group(['middleware'=> ['auth:employee-api','scope:employee']],function(){
     // Authenticated API Routes will appear here
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
+    Route::post('update-profile',[AuthenticationController::class, 'updateUserProfile']);
+    Route::post('change-password',[AuthenticationController::class, 'updateUserPassword']);
 
     // Logout API
     Route::any('logout',[AuthenticationController::class,'logoutFromSingleDevice']);

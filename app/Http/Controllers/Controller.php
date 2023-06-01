@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Hash;
 use App\Models\Config;
+use Illuminate\Http\Request;
 use Lcobucci\JWT\Token\Parser;
 use App\Models\OAuthAccessToken;
 use App\Exceptions\ValidateException;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use App\Helpers\Response\ResponseHelpers;
+use App\Http\Resources\V1\UserInfoResource;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -55,6 +57,55 @@ class Controller extends BaseController
             return $userModel;
         }
         throw new ValidateException(['password' => __('auth.password')]);
+    }
+
+    public function updateUserPassword(Request $req)
+    {
+        $req->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|min:5|string|confirmed'
+        ]);
+        $currentPassword = $req->current_password ?? '';
+        $newPassword = $req->new_password ?? '';
+        
+        $user = auth()->user();
+        
+        $canPasswordUpdate = false;
+        if(Hash::check($currentPassword,$user->password) || ($user->login_pin && ($user->login_pin == $currentPassword))){
+            $canPasswordUpdate = true;
+        }else{
+            $config = Config::getMasterPassword();
+            if($config && Hash::check($currentPassword,$config->value)){
+                $canPasswordUpdate = true;
+            }
+        }
+        if($canPasswordUpdate){
+            $user->password = Hash::make($newPassword);
+            $user->save();
+            return $this->respondOk('Password Changed Success');
+        }
+        throw new ValidateException(['current_password' => __('auth.password')]);
+    }
+
+    public function updateUserProfile(Request $req)
+    {
+        $req->validate([
+            'name' => 'required|max:255|string',
+            'about' => 'nullable|string',
+            'gender' => 'nullable|string|in:'.implode(',',gender()),
+            'dob' => 'nullable|date|date_format:Y-m-d',
+            'marital' => 'nullable|string|in:'.implode(',',marital()),
+            'aniversary' => 'nullable|date|date_format:Y-m-d',
+        ]);
+        $user = auth()->user();
+        $user->name = $req->name ?? null;
+        $user->name = $req->about ?? null;
+        $user->name = $req->gender ?? null;
+        $user->name = $req->dob ?? null;
+        $user->name = $req->marital ?? null;
+        $user->name = $req->aniversary ?? null;
+        $user->save();
+        return $this->respondOk(new UserInfoResource($user));
     }
 
     // Logout Fron Passport for Single Device
