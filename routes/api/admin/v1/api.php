@@ -21,6 +21,7 @@ Route::group(['middleware'=> ['auth:admin-api','scope:admin']],function(){
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
     Route::post('update-profile',[AuthenticationController::class, 'updateUserProfile']);
+    Route::post('change-pin',[AuthenticationController::class, 'updateUserLoginPin']);
     Route::post('change-password',[AuthenticationController::class, 'updateUserPassword']);
 
     Route::post('client/business-plan/initiate-order',[AdminController::class, 'clientBusinessPlanInitiateOrder']);

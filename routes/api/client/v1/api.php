@@ -20,6 +20,7 @@ Route::group(['middleware'=> ['auth:client-api','scope:client']],function(){
     // Authenticated API Routes will appear here
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::post('update-profile',[AuthenticationController::class, 'updateUserProfile']);
+    Route::post('change-pin',[AuthenticationController::class, 'updateUserLoginPin']);
     Route::post('change-password',[AuthenticationController::class, 'updateUserPassword']);
     
     /** Business Routing */

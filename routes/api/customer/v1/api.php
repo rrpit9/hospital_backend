@@ -21,6 +21,7 @@ Route::group(['middleware'=> ['auth:customer-api','scope:customer']],function(){
     Route::get('profile',[AuthenticationController::class,'getUserProfile']);
     Route::get('notification',[AuthenticationController::class, 'getUserNotification']);
     Route::post('update-profile',[AuthenticationController::class, 'updateUserProfile']);
+    Route::post('change-pin',[AuthenticationController::class, 'updateUserLoginPin']);
     Route::post('change-password',[AuthenticationController::class, 'updateUserPassword']);
 
     // Logout API
