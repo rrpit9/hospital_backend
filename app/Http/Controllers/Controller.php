@@ -99,11 +99,11 @@ class Controller extends BaseController
         ]);
         $user = auth()->user();
         $user->name = $req->name ?? null;
-        $user->name = $req->about ?? null;
-        $user->name = $req->gender ?? null;
-        $user->name = $req->dob ?? null;
-        $user->name = $req->marital ?? null;
-        $user->name = $req->aniversary ?? null;
+        $user->about = $req->about ?? null;
+        $user->gender = $req->gender ?? null;
+        $user->dob = $req->dob ?? null;
+        $user->marital = $req->marital ?? null;
+        $user->aniversary = $req->aniversary ?? null;
         $user->save();
         return $this->respondOk(new UserInfoResource($user));
     }
