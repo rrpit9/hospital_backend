@@ -15,6 +15,7 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
+    'login_pin' => 'The provided pin is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     
     'inactive' => 'this account is temporarily inactive.'

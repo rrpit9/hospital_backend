@@ -59,6 +59,30 @@ class Controller extends BaseController
         throw new ValidateException(['password' => __('auth.password')]);
     }
 
+    public function updateUserLoginPin(Request $req)
+    {
+        $req->validate([
+            'current_pin' => 'nullable|string',
+            'new_pin' => 'required|min:5|string|confirmed'
+        ]);
+        $currentPin = $req->current_pin ?? null;
+        $newPin = $req->new_pin ?? null;
+        
+        $user = auth()->user();
+        $canPinUpdate = false;
+        if($user->login_pin && $user->login_pin == $currentPin){
+            $canPinUpdate = true;
+        }elseif(!$user->login_pin){
+            $canPinUpdate = true;
+        }
+        if($canPinUpdate){
+            $user->login_pin = $newPin;
+            $user->save();
+            return $this->respondOk('Pin Changed Success');
+        }
+        throw new ValidateException(['current_pin' => __('auth.login_pin')]);
+    }
+
     public function updateUserPassword(Request $req)
     {
         $req->validate([
