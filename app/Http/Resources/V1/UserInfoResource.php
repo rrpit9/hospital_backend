@@ -25,9 +25,9 @@ class UserInfoResource extends JsonResource
             'image' => url("$this->image"),
             'about' => $this->about,
             'gender' => $this->gender,
-            'dob' => dateCheck($this->dob),
+            'dob' => $this->dob,
             'marital' => $this->marital,
-            'aniversary' => dateCheck($this->aniversary),
+            'aniversary' => $this->aniversary,
             'is_registered' => (bool) $this->is_registered,
             'active' => (bool) $this->active,
             'last_login' => dateCheck($this->last_login, true)
